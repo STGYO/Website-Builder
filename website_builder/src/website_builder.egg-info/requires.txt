@@ -1,0 +1,15 @@
+crewai[tools]>=0.14.1
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+pathlib>=1.0.1
+openai>=1.0.0
+langchain>=0.1.0
+google-generativeai>=0.3.0
+google-cloud-aiplatform>=1.38.0
+
+[dev]
+pytest>=7.0.0
+black>=23.0.0
+isort>=5.0.0
+mypy>=1.0.0
+flake8>=6.0.0

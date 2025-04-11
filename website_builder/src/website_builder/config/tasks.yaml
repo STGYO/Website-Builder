@@ -1,0 +1,118 @@
+research_task:
+  description: "Research the topic '{topic}' thoroughly using the Serper Dev tool. Your primary goal is to answer the question 'What is {topic}?' and then expand on that understanding. Structure your research to include:
+
+    1. Core Definition and Overview
+       - What is {topic}?
+       - Key characteristics and features
+       - Basic concepts and terminology
+
+    2. Detailed Explanation
+       - How does it work?
+       - What are its main components?
+       - What problems does it solve?
+
+    3. Practical Applications
+       - Real-world use cases
+       - Industry applications
+       - Success stories and examples
+
+    4. Technical Details
+       - Implementation considerations
+       - Best practices
+       - Common challenges and solutions
+
+    5. Current State and Future
+       - Latest developments
+       - Industry trends
+       - Future prospects
+
+    Use the Serper Dev tool to find authoritative sources and gather comprehensive information. Focus on providing clear, explanatory content rather than just listing facts or keywords. Ensure all information is accurate and up-to-date."
+  expected_output: "A detailed research document in markdown format that thoroughly explains {topic}, including:
+
+    1. Introduction
+       - Clear definition of {topic}
+       - Brief overview of its importance
+
+    2. Main Content
+       - Detailed explanation of what {topic} is
+       - How it works and its components
+       - Practical applications and examples
+       - Technical details and considerations
+       - Current state and future outlook
+
+    3. Supporting Information
+       - Key terms and definitions
+       - Real-world examples
+       - Best practices and guidelines
+       - References and sources
+
+    The content must be clear, comprehensive, and well-structured to help readers understand {topic} thoroughly."
+  agent: web_researcher
+  output_file: "output/research.md"
+  context: []
+  dependencies: []
+
+html_creation_task:
+  description: "Create a semantic HTML webpage about {topic}. Structure the content clearly and include relevant sections based on the research content. Use appropriate HTML5 elements, class names, and IDs for styling and JS functionality.
+
+    IMPORTANT:
+    1. The final output string MUST start *exactly* with <!DOCTYPE html> and end *exactly* with </html>
+    2. Include the CSS link (<link rel='stylesheet' href='style.css'>) and the JS link (<script src='script.js' defer></script>) inside the <head> tag
+    3. Add appropriate meta tags for responsiveness and character encoding in the <head>
+    4. Place the progress bar div (<div id='progressBar'></div>) and dark mode toggle button (<button id='darkModeToggle'>Dark Mode</button>) inside the <body> tag
+
+    Generate semantic, accessible, and standards-compliant HTML code that follows W3C guidelines."
+  expected_output: "A complete HTML file that meets the following requirements:
+    1. Starts with <!DOCTYPE html> and contains ONLY valid HTML
+    2. Ends with </html>, with no extra characters
+    3. Has CSS/JS links and meta tags correctly placed in the <head>
+    4. Has the progress bar and dark mode button correctly placed inside the <body>
+    5. Uses semantic HTML5 and accessibility features according to W3C standards."
+  agent: html_creator
+  output_file: "output/html/index.html"
+  context: ["research_task"]
+  dependencies: ["research_task"]
+
+css_design_task:
+  description: "Create a beautiful and responsive CSS design for the {topic} website. Review the HTML structure and create styles for typography, layout, colors, responsiveness, and interactive elements (#progressBar, #darkModeToggle, .dark-mode).
+
+    IMPORTANT:
+    1. Start with CSS variables for theming
+    2. Include styles for #progressBar, .dark-mode class, #darkModeToggle
+    3. Implement responsive design with media queries
+    4. Add smooth transitions for interactive elements
+    5. Include print-friendly styles
+
+    Generate clean, efficient, and maintainable CSS code that follows modern best practices."
+  expected_output: "A complete CSS file containing all necessary styles for the website. The output must:
+    1. Start with CSS variables for theming
+    2. Include all required component styles
+    3. Implement responsive design according to the HTML Structure in the html_creation_task
+    4. Include transitions and print styles
+    5. Follow modern CSS best practices and standards."
+  agent: css_designer
+  output_file: "output/css/style.css"
+  context: ["html_creation_task"]
+  dependencies: ["html_creation_task"]
+
+js_development_task:
+  description: "Add interactive functionality using JavaScript to the HTML structure in the html_creation_task. Implement features for #progressBar (reading progress) and #darkModeToggle (toggle with local storage).
+
+    IMPORTANT:
+    1. Implement reading progress bar functionality
+    2. Implement dark mode toggle with local storage
+    3. Add error handling with try-catch blocks
+    4. Use efficient event listeners
+    5. Ensure code is clean and well-documented
+
+    Generate clean, efficient, and well-documented JavaScript code that follows modern best practices."
+  expected_output: "A complete JavaScript file that implements all required functionality. The code must:
+    1. Implement the reading progress bar
+    2. Handle dark mode toggle with local storage
+    3. Include error handling
+    4. Use efficient event listeners
+    5. Be well-documented and follow modern JavaScript best practices."
+  agent: js_developer
+  output_file: "output/js/script.js"
+  context: ["html_creation_task", "css_design_task"]
+  dependencies: ["html_creation_task", "css_design_task"]

@@ -1,4 +1,7 @@
 .env
 __pycache__/
 .DS_Store
+.pytest_cache
+.cursor
+.vs
 .venv

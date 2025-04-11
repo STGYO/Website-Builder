@@ -1,0 +1,6 @@
+[console_scripts]
+replay = website_builder.main:replay
+run_crew = website_builder.main:run
+test = website_builder.main:test
+train = website_builder.main:train
+website_builder = website_builder.main:run

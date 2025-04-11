@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "website_builder"
+version = "0.1.0"
+description = "An AI-powered website builder using CrewAI"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+dependencies = [
+    "crewai[tools]>=0.14.1",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+    "pathlib>=1.0.1",
+    "openai>=1.0.0",
+    "langchain>=0.1.0",
+    "google-generativeai>=0.3.0",
+    "google-cloud-aiplatform>=1.38.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "isort>=5.0.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+]
+
+[project.scripts]
+website_builder = "website_builder.main:run"
+run_crew = "website_builder.main:run"
+train = "website_builder.main:train"
+replay = "website_builder.main:replay"
+test = "website_builder.main:test"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
